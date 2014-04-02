@@ -19,3 +19,22 @@ Generate following a given pattern:
 Save a list to file:
 
     $ python wordlist.py [charset] -o list.txt
+
+#### [charset]
+There are to ways to pass the charset to the script:
+ * A simple list of characters
+
+    `$ python wordlist.py abcxyz987`
+
+ * A list of ranges following the simple regex `(\w-\w)`
+
+    `$ python wordlist.py a-z0-9A-Z`
+    
+#### Pattern
+The pattern should be like:
+
+`@@q@@er@t@y`
+
+The script will replace every `@` symbol with every letter in the charset so as to get every possible
+permutation. Every other symbol will be a fixed character present in every string. In this example, every generated string will contain a `q` at the 3rd position an `e` at the 6th and so on.
+
