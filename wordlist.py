@@ -12,12 +12,24 @@ from collections import OrderedDict
 import sys
 import os
 
+
+def char_range( x, y ):
+    """
+    Create a range generator for chars
+    """
+    if type(x) is not str or type(y) is not str:
+        print('char_range: Wrong argument/s type')
+        exit(-1)
+    for z in range( ord(x), ord(y) + 1 ):
+        yield( chr(z) )
+
 class Wordlist( object ):
     """
     Wordlist class is the wordlist itself, will do the job
     """
     def __init__( self, charset, minlen, maxlen, pattern, filedesc ):
-        self.charset = list(set(charset))
+        self.charset = self.__parse_charset( charset )
+        self.charset = list(set(self.charset))
         self.min = minlen
         self.max = maxlen
         self.pattern = pattern
@@ -114,6 +126,24 @@ class Wordlist( object ):
         sys.stdout.write('Progress: %s%s %d%%' %
                          ('='*(val/5), ' '*(20-(val/5)), val))
         sys.stdout.flush()
+
+    def __parse_charset( self, charset ):
+        """
+        Finds out whether there are intervals to expand and
+        creates the charset
+        """
+        import re
+        regex = '(\w-\w)'
+        pat = re.compile( regex )
+        found = pat.findall( charset )
+        result = ''
+        if found:
+            for el in found:
+                for x in char_range( el[0], el[-1] ):
+                   result += x
+            return result
+        return charset
+            
 
 class Pattern(object):
     """
