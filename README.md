@@ -2,8 +2,8 @@ Wordlist
 ========
 Generates all possible permutations of a given charset.
 
-Usage:
-======
+## Usage:
+
 Generate all the possible words with a given charset:
 
     $ python wordlist.py [charset]
@@ -38,3 +38,11 @@ The pattern should be like:
 The script will replace every `@` symbol with every letter in the charset so as to get every possible
 permutation. Every other symbol will be a fixed character present in every string. In this example, every generated string will contain a `q` at the 3rd position an `e` at the 6th and so on.
 
+## Contributing
+
+```
+$ git clone https://github.com/rexos/wordlist.git
+$ cd wordlist
+```
+
+And open a pull request!
