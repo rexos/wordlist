@@ -173,7 +173,7 @@ def main():
     parser.add_option('-o', '--out',
                       help='Saves output to specified file')
     parser.add_option('-v', '--verbose',
-                      help='print the progress')
+                      help='print the progress', default=False, action="store_true")
     parser.add_option('-p', help='Pattern to follow')
 
     opts, args = parser.parse_args()
@@ -201,6 +201,8 @@ def main():
     wordlist = Wordlist( args[0], int(minlen),
                          int(maxlen), pattern, filedesc )
 
+    if opts.__dict__['verbose']:
+        wordlist.verbose = True
     # if a pattern is given generate the list based on it
     if pattern:
         wordlist.generate_with_pattern()
@@ -209,8 +211,7 @@ def main():
         wordlist.generate()
         wordlist.filedesc.close()
 
-    if opts.__dict__['verbose'] is not None:
-        wordlist.verbose = True
+
 
 if __name__ == '__main__':
     main()
