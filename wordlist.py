@@ -32,6 +32,7 @@ class Wordlist( object ):
         self.charset = list(set(self.charset))
         self.min = minlen
         self.max = maxlen
+        self.verbose = False
         self.pattern = pattern
         self.perms = {}
         self.filedesc = filedesc
@@ -51,7 +52,8 @@ class Wordlist( object ):
                 # a progress bar to stdout
                 if self.filedesc != sys.stdout:
                     counter = counter + 1
-                    self.__progress( counter )
+                    if self.verbose:
+                        self.__progress( counter )
         # once the work is done tell the kernel to point
         # the file pointer to the end of the file so as
         # to be able to get the file size.
@@ -101,7 +103,7 @@ class Wordlist( object ):
         """
         prev = 0
         for ind, val in enumerate(list(self.pattern)):
-            if val != '@': 
+            if val != '@':
                 if not self.perms.get((ind-prev), None):
                     self.perms[ind-prev] = list(product(self.charset,
                                                         repeat=(ind-prev)))
@@ -143,7 +145,7 @@ class Wordlist( object ):
                    result += x
             return result
         return charset
-            
+
 
 class Pattern(object):
     """
@@ -170,6 +172,8 @@ def main():
     parser.add_option('-M', '--max', help='Maximum word size')
     parser.add_option('-o', '--out',
                       help='Saves output to specified file')
+    parser.add_option('-v', '--verbose',
+                      help='print the progress', default=False, action="store_true")
     parser.add_option('-p', help='Pattern to follow')
 
     opts, args = parser.parse_args()
@@ -179,7 +183,7 @@ def main():
         exit(-1)
 
 
-    minlen = opts.__dict__['min'] 
+    minlen = opts.__dict__['min']
     if minlen is None:
         minlen = 1
 
@@ -191,12 +195,14 @@ def main():
     if opts.__dict__['out'] is None:
         filedesc = sys.stdout
     else:
-        filedesc = open(opts.__dict__['out'], 'w')
+        filedesc = open(opts.__dict__['out'], 'w', 1000)
 
     pattern = opts.__dict__['p']
     wordlist = Wordlist( args[0], int(minlen),
                          int(maxlen), pattern, filedesc )
 
+    if opts.__dict__['verbose']:
+        wordlist.verbose = True
     # if a pattern is given generate the list based on it
     if pattern:
         wordlist.generate_with_pattern()
@@ -204,6 +210,8 @@ def main():
     else:
         wordlist.generate()
         wordlist.filedesc.close()
+
+
 
 if __name__ == '__main__':
     main()
