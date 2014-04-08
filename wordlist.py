@@ -84,8 +84,6 @@ class Wordlist(object):
         prev is the index of the previous data object used.
         """
 
-
-
         if not prev:
             # the first call should scan the pattern first
             #self.__create_perms()
@@ -94,7 +92,7 @@ class Wordlist(object):
         if data == {}:
             # if the known values in the pattern have been completely
             # used concat the last part, if any, and print it out
-            if not len(self.pattern)-prev:
+            if len(self.pattern)-prev:
                 for word in str_product(self.charset, len(self.pattern) - prev):
                     print >> self.filedesc, composed + word
             else:
