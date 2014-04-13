@@ -208,7 +208,6 @@ def main():
     # generate normally otherwise
     else:
         wordlist.generate()
-        #wordlist.filedesc.close()
 
 if __name__ == '__main__':
     main()
