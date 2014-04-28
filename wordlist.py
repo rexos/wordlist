@@ -152,7 +152,7 @@ class Pattern(object):
     Pattern performs pattern scanning extracting
     values from it.
     """
-    def __init__(self, raw = None):
+    def __init__(self, raw=None):
         if raw is None:
             raw = ''
         self.string = raw
