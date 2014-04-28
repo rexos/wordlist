@@ -94,7 +94,7 @@ class Wordlist(object):
         if not data:
             # if the known values in the pattern have been completely
             # used concat the last part, if any, and print it out
-            if not len(self.pattern)-prev:
+            if len(self.pattern)-prev:
                 for w in str_product(self.charset, len(self.pattern) - prev):
                     print >> self.filedesc, composed + w
             else:
