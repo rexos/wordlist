@@ -89,8 +89,6 @@ class Wordlist(object):
             patt = Pattern(self.pattern)
             data = patt.scan()
 
-        print >> self.filedesc, data
-
         if not data:
             # if the known values in the pattern have been completely
             # used concat the last part, if any, and print it out
