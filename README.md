@@ -2,6 +2,11 @@ Wordlist
 ========
 Generates all possible permutations of a given charset.
 
+Developed by [Alex Pellegrini](https://github.com/rexos).
+
+Code and performance optimisation by [Daniele Bonadiman](https://github.com/dbonadiman).
+
+
 ## Usage:
 
 Generate all the possible words with a given charset:
