@@ -93,8 +93,8 @@ class Wordlist(object):
             # if the known values in the pattern have been completely
             # used concat the last part, if any, and print it out
             if len(self.pattern)-prev:
-                for w in str_product(self.charset, len(self.pattern) - prev):
-                    print >> self.filedesc, composed + w
+                for word in str_product(self.charset, len(self.pattern) - prev):
+                    print >> self.filedesc, composed + word
             else:
                 # the word is complete, print it out to file or stdout
                 print >> self.filedesc, composed
