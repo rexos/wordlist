@@ -6,11 +6,11 @@
 #                                          #
 ############################################
 
-from itertools import product
-from optparse import OptionParser
-from collections import OrderedDict
 import sys
 import os
+from itertools import product
+from argparse import ArgumentParser
+from collections import OrderedDict
 
 
 def char_range(x, y):
@@ -37,12 +37,14 @@ class Wordlist(object):
     """
     Wordlist class is the wordlist itself, will do the job
     """
-    def __init__(self, charset, minlen, maxlen, pattern, filedesc):
+    def __init__(self, charset, minlen, maxlen, pattern, filedesc,
+                 verbose=False):
+
         self.charset = self.__parse_charset(charset)
         self.charset = list(set(self.charset))
         self.min = minlen
         self.max = maxlen
-        self.verbose = False
+        self.verbose = verbose
         self.pattern = pattern
         self.filedesc = filedesc
         self.size = self.__total()
@@ -92,8 +94,9 @@ class Wordlist(object):
         if not data:
             # if the known values in the pattern have been completely
             # used concat the last part, if any, and print it out
-            if len(self.pattern)-prev:
-                for word in str_product(self.charset, len(self.pattern) - prev):
+            diff = len(self.pattern)-prev
+            if diff:
+                for word in str_product(self.charset, diff):
                     print >> self.filedesc, composed + word
             else:
                 # the word is complete, print it out to file or stdout
@@ -163,42 +166,43 @@ class Pattern(object):
         return res
 
 
+def get_parser():
+    # command line option parsing
+    parser = ArgumentParser()
+    parser.add_argument('charset', help='Charset to use')
+    parser.add_argument('-m', '--min', help='minimum word size', type=int)
+    parser.add_argument('-M', '--max', help='Maximum word size', type=int)
+    parser.add_argument('-o', '--out', help='Saves output to specified file')
+    parser.add_argument('pattern', help='Pattern to follow', nargs='?')
+    parser.add_argument('-v', '--verbose', help='print the progress',
+                        default=False, action="store_true")
+    return parser
+
+
 def main():
     # command line option parsing
-    parser = OptionParser()
-    parser.add_option('-m', '--min', help='minimum word size')
-    parser.add_option('-M', '--max', help='Maximum word size')
-    parser.add_option('-o', '--out',
-                      help='Saves output to specified file')
-    parser.add_option('-v', '--verbose', help='print the progress',
-                      default=False, action="store_true")
-    parser.add_option('-p', help='Pattern to follow')
+    parser = get_parser()
 
-    opts, args = parser.parse_args()
+    args = vars(parser.parse_args())
+    charset = args['charset']
+    pattern = args['pattern']
+    minlen = args['min']
+    maxlen = args['max']
+    verbose = args['verbose']
 
-    if not len(args):
-        print('\n'+__file__+': charset required')
-        exit(-1)
-
-    minlen = opts.__dict__['min']
     if minlen is None:
         minlen = 1
 
-    maxlen = opts.__dict__['max']
     if maxlen is None:
-        maxlen = len(args[0])
+        maxlen = len(charset)
 
-    if opts.__dict__['out'] is None:
+    if args['out'] is None:
         filedesc = sys.stdout
     else:
-        filedesc = open(opts.__dict__['out'], 'w')
+        filedesc = open(args['out'], 'w')
 
-    pattern = opts.__dict__['p']
-    wordlist = Wordlist(args[0], int(minlen),
-                        int(maxlen), pattern, filedesc)
-
-    if opts.__dict__['verbose']:
-        wordlist.verbose = True
+    wordlist = Wordlist(charset, minlen,
+                        maxlen, pattern, filedesc, verbose)
     # if a pattern is given generate the list based on it
     if pattern:
         wordlist.generate_with_pattern()
