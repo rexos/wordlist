@@ -169,11 +169,11 @@ class Pattern(object):
 def get_parser():
     # command line option parsing
     parser = ArgumentParser()
-    parser.add_argument('charset')
+    parser.add_argument('charset', help='Charset to use')
     parser.add_argument('-m', '--min', help='minimum word size', type=int)
     parser.add_argument('-M', '--max', help='Maximum word size', type=int)
     parser.add_argument('-o', '--out', help='Saves output to specified file')
-    parser.add_argument('pattern', help='Pattern to follow')
+    parser.add_argument('pattern', help='Pattern to follow', nargs='?')
     parser.add_argument('-v', '--verbose', help='print the progress',
                         default=False, action="store_true")
     return parser
