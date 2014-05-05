@@ -6,11 +6,11 @@
 #                                          #
 ############################################
 
+import sys
+import os
 from itertools import product
 from argparse import ArgumentParser
 from collections import OrderedDict
-import sys
-import os
 
 
 def char_range(x, y):
@@ -170,8 +170,8 @@ def get_parser():
     # command line option parsing
     parser = ArgumentParser()
     parser.add_argument('charset')
-    parser.add_argument('-m', '--min', help='minimum word size')
-    parser.add_argument('-M', '--max', help='Maximum word size')
+    parser.add_argument('-m', '--min', help='minimum word size', type=int)
+    parser.add_argument('-M', '--max', help='Maximum word size', type=int)
     parser.add_argument('-o', '--out', help='Saves output to specified file')
     parser.add_argument('pattern', help='Pattern to follow')
     parser.add_argument('-v', '--verbose', help='print the progress',
@@ -201,8 +201,8 @@ def main():
     else:
         filedesc = open(args['out'], 'w')
 
-    wordlist = Wordlist(charset, int(minlen),
-                        int(maxlen), pattern, filedesc, verbose)
+    wordlist = Wordlist(charset, minlen,
+                        maxlen, pattern, filedesc, verbose)
     # if a pattern is given generate the list based on it
     if pattern:
         wordlist.generate_with_pattern()
