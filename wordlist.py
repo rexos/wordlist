@@ -24,7 +24,7 @@ def char_range(x, y):
         yield(chr(z))
 
 
-def str_product(charset, repeat, default = ''):
+def str_product(charset, repeat, default=''):
     """
     A generator returning all the possible permutation of characters
     from a charset as string (the string ends with a newline)
@@ -44,7 +44,6 @@ class Wordlist(object):
         self.max = maxlen
         self.verbose = False
         self.pattern = pattern
-        self.perms = {}
         self.filedesc = filedesc
         self.size = self.__total()
 
@@ -71,9 +70,9 @@ class Wordlist(object):
             self.filedesc.seek(0, os.SEEK_END)
             print('\n' + __file__ + ' List size: ' +
                   str(self.filedesc.tell()) + ' bytes')
-        self.filedesc.close()
+            self.filedesc.close()
 
-    def generate_with_pattern(self, data={}, composed='', prev=0):
+    def generate_with_pattern(self, data=None, composed='', prev=0):
         """
         Iterative-Recursive algorithm that creates the list
         based on a given pattern
@@ -87,9 +86,10 @@ class Wordlist(object):
         if not prev:
             # the first call should scan the pattern first
             #self.__create_perms()
-            data = Pattern(self.pattern)
-            data = data.scan()
-        if data == {}:
+            patt = Pattern(self.pattern)
+            data = patt.scan()
+
+        if not data:
             # if the known values in the pattern have been completely
             # used concat the last part, if any, and print it out
             if len(self.pattern)-prev:
@@ -107,7 +107,6 @@ class Wordlist(object):
                 self.generate_with_pattern(OrderedDict(data), composed +
                                            word + val, num+1)
 
-
     def __total(self):
         """
         Computes the number of words to be generated.
@@ -115,7 +114,7 @@ class Wordlist(object):
         """
         ary = range(self.min, self.max + 1)
         length = len(self.charset)
-        return sum([pow(length, x) for x in ary])
+        return sum(pow(length, x) for x in ary)
 
     def __progress(self, current):
         """
@@ -151,7 +150,7 @@ class Pattern(object):
     Pattern performs pattern scanning extracting
     values from it.
     """
-    def __init__(self, raw):
+    def __init__(self, raw=None):
         if raw is None:
             raw = ''
         self.string = raw
@@ -206,7 +205,6 @@ def main():
     # generate normally otherwise
     else:
         wordlist.generate()
-        #wordlist.filedesc.close()
 
 if __name__ == '__main__':
     main()
