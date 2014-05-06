@@ -7,6 +7,7 @@
 # dbonadiman.                              #
 #                                          #
 ############################################
+from __future__ import print_function
 
 import sys
 import os
@@ -19,9 +20,9 @@ def char_range(x, y):
     """
     Create a range generator for chars
     """
-    if type(x) is not str or type(y) is not str:
-        print('char_range: Wrong argument/s type')
-        exit(-1)
+    assert isinstance(x, str), 'char_range: Wrong argument/s type'
+    assert isinstance(y, str), 'char_range: Wrong argument/s type'
+
     for z in range(ord(x), ord(y) + 1):
         yield(chr(z))
 
@@ -64,7 +65,7 @@ class Wordlist(object):
             # append the generated words to the file
             self.filedesc.writelines(str_generator)
             # a progress bar to stdout
-            if self.filedesc != sys.stdout and self.verbose:
+            if self.verbose and self.filedesc != sys.stdout:
                 counter += len(self.charset) ** cur
                 self.__progress(counter)
         # once the work is done tell the kernel to point
@@ -99,10 +100,10 @@ class Wordlist(object):
             diff = len(self.pattern)-prev
             if diff:
                 for word in str_product(self.charset, diff):
-                    print >> self.filedesc, composed + word
+                    print(composed + word, file=self.filedesc)
             else:
                 # the word is complete, print it out to file or stdout
-                print >> self.filedesc, composed
+                print(composed, file=self.filedesc)
         else:
             # pop a value from the pattern dict concat it to composed
             # concat a new part to the composed string and call this
@@ -161,10 +162,7 @@ class Pattern(object):
         self.string = raw
 
     def scan(self):
-        res = OrderedDict()
-        for ind, val in enumerate(self.string):
-            if val != '@':
-                res[ind] = val
+        res = OrderedDict(x for x in enumerate(self.string) if x[1] != '@')
         return res
 
 
