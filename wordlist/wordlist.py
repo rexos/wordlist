@@ -3,6 +3,8 @@
 #                                          #
 # Wordlist generator, creates dictionaries #
 # Developed by rexos.                      #
+# Code and performance optimisation by     #
+# dbonadiman.                              #
 #                                          #
 ############################################
 from __future__ import print_function
