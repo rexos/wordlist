@@ -14,10 +14,10 @@ import os
 
 from collections import OrderedDict
 
-from __util import (str_product,
-                    parse_charset,
-                    progress,
-                    scan_pattern)
+from _util import (str_product,
+                   parse_charset,
+                   progress,
+                   scan_pattern)
 
 
 class Generator(object):
