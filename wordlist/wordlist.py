@@ -12,11 +12,11 @@ from __future__ import print_function
 import sys
 import os
 
+from itertools import product
 from collections import OrderedDict
 
 from ._util import (str_product,
                     parse_charset,
-                    progress,
                     scan_pattern)
 
 
@@ -24,43 +24,25 @@ class Generator(object):
     """
     Wordlist class is the wordlist itself, will do the job
     """
-    def __init__(self, charset, minlen, maxlen, pattern, filedesc,
-                 verbose=False):
-
+    def __init__(self, charset, delimiter=''):
         self.charset = parse_charset(charset)
-        self.min = minlen
-        self.max = maxlen
-        self.verbose = verbose
-        self.pattern = pattern
-        self.filedesc = filedesc
-        self.size = self.__total()
+        self.delimiter = delimiter
+        #self.verbose = verbose
+        #self.filedesc = filedesc
 
-    def generate(self):
+    def generate(self, minlen, maxlen):
         """
         Generates words of different length without storing
         them into memory, enforced by itertools.product
         """
-
-        counter = 0
-        for cur in range(self.min, self.max + 1):
+        for cur in range(minlen, maxlen + 1):
             # string product generator
-            str_generator = str_product(self.charset, cur, '\n')
-            # append the generated words to the file
-            self.filedesc.writelines(str_generator)
-            # a progress bar to stdout
-            if self.verbose and self.filedesc != sys.stdout:
-                counter += len(self.charset) ** cur
-                progress(counter, self.size)
-        # once the work is done tell the kernel to point
-        # the file pointer to the end of the file so as
-        # to be able to get the file size.
-        if self.filedesc != sys.stdout:
-            self.filedesc.seek(0, os.SEEK_END)
-            print('\n' + __file__ + ' List size: ' +
-                  str(self.filedesc.tell()) + ' bytes')
-            self.filedesc.close()
+            str_generator = product(self.charset, repeat=cur)
+            for each in str_generator:
+                # yield the produced word
+                yield ''.join(each)+self.delimiter
 
-    def generate_with_pattern(self, data=None, composed='', prev=0):
+    def generate_with_pattern(self, pattern, data=None, composed='', prev=0):
         """
         Iterative-Recursive algorithm that creates the list
         based on a given pattern
@@ -73,32 +55,24 @@ class Generator(object):
 
         if not prev:
             # the first call should scan the pattern first
-            data = scan_pattern(self.pattern)
+            data = scan_pattern(pattern)
 
         if not data:
             # if the known values in the pattern have been completely
             # used concat the last part, if any, and print it out
-            diff = len(self.pattern)-prev
+            diff = len(pattern)-prev
             if diff:
-                for word in str_product(self.charset, diff):
-                    print(composed + word, file=self.filedesc)
+                for word in product(self.charset, repeat=diff):
+                     # yield the produced word
+                    yield composed + ''.join(word) + self.delimiter
             else:
-                # the word is complete, print it out to file or stdout
-                print(composed, file=self.filedesc)
+                 # yield the produced word
+                yield composed + self.delimiter
         else:
             # pop a value from the pattern dict concat it to composed
             # concat a new part to the composed string and call this
             # function again with the new composed word
             num, val = data.popitem(last=False)
-            for word in str_product(self.charset, num - prev):
-                self.generate_with_pattern(OrderedDict(data), composed +
-                                           word + val, num+1)
-
-    def __total(self):
-        """
-        Computes the number of words to be generated.
-        It will be used to prompt a progress bar.
-        """
-        ary = range(self.min, self.max + 1)
-        length = len(self.charset)
-        return sum(pow(length, x) for x in ary)
+            for word in product(self.charset, repeat=num-prev):
+                self.generate_with_pattern(pattern, OrderedDict(data),
+                                           composed + ''.join(word) + val, num+1)

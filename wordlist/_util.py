@@ -56,4 +56,3 @@ def progress(current, size):
     sys.stdout.write('Progress: %s%s %d%%' %
                      ('='*(val//5), ' '*(20-(val//5)), val))
     sys.stdout.flush()
-
