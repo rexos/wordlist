@@ -10,7 +10,11 @@
 from __future__ import print_function
 
 from itertools import product
-from collections import OrderedDict
+
+try:
+    from collections import OrderedDict
+except ImportError:
+    from ordereddict import OrderedDict
 
 from ._util import (parse_charset,
                     scan_pattern)
