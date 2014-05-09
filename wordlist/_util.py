@@ -1,9 +1,6 @@
 import sys
 from itertools import product
-try:
-    from collections import OrderedDict
-except ImportError:
-    from ordereddict import OrderedDict
+from collections import OrderedDict
 
 
 def char_range(x, y):
