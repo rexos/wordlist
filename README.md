@@ -10,34 +10,67 @@ Developed by [Alex Pellegrini](https://github.com/rexos).
 
 Code and performance optimisation by [Daniele Bonadiman](https://github.com/dbonadiman).
 
+## Installing:
+
+```
+$ pip install git+https://github.com/dbonadiman/wordlist.git
+``` 
 
 ## Usage:
 
+There are two ways to use **_wordlist_** (command line, python)
+
+### Command-line
+
 Generate all the possible words with a given charset:
 
-    $ python wordlist.py [charset]
+    $ wordlist [charset]
 
 Generate all the possible words with length within a given interval (e.g. from 2 to 5):
 
-    $ python wordlist.py [charset] -m 2 -M 5
+    $ wordlist [charset] -m 2 -M 5
 
 Generate following a given pattern:
 
-    $ python wordlist.py [charset] @@q@@er@t@y
+    $ wordlist [charset] @@q@@er@t@y
 
 Save a list to file:
 
-    $ python wordlist.py [charset] -o list.txt
+    $ wordlist [charset] -o list.txt
+    
+or:
+    
+    $ wordlist [charset] > list.txt
+
+### Python
+
+Generate all the possible words with length within a given interval (e.g. from 2 to 5):
+
+```python
+import wordlist
+generator = wordlist.Generator([charset])
+for each in generator.generate(2, 5):
+    print(each)
+```
+
+Generate following a given pattern:
+
+```python
+import wordlist
+generator = wordlist.Generator([charset])
+for each in generator.generate_with_pattern('@@q@@er@t@y'):
+    print(each)
+```
 
 #### [charset]
 There are to ways to pass the charset to the script:
  * A simple list of characters
 
-    `$ python wordlist.py abcxyz987`
+    `$ wordlist abcxyz987`
 
  * A list of ranges following the simple regex `(\w-\w)`
 
-    `$ python wordlist.py a-z0-9A-Z`
+    `$ wordlist a-z0-9A-Z`
 
 #### Pattern
 The pattern should be like:
@@ -52,6 +85,8 @@ permutation. Every other symbol will be a fixed character present in every strin
 ```
 $ git clone https://github.com/rexos/wordlist.git
 $ cd wordlist
+$ pip install -r requirements.txt
+$ nosetests
 ```
 
 And open a pull request!
