@@ -7,8 +7,10 @@ except ImportError:
 
 import wordlist
 
+install_requires = []
+
 if sys.version_info < (2, 6):
-    install_requires = "ordereddict"
+    install_requires.append("ordereddict")
 
 config = {
     'description': 'Wordlist generator, creates dictionaries of words',
@@ -17,7 +19,7 @@ config = {
     'download_url': 'https://github.com/rexos/wordlist/archive/master.zip',
     'author_email': 'etc @ rexos',
     'version': wordlist.__version__,
-    'install_requires': [install_requires],
+    'install_requires': install_requires,
     'packages': ['wordlist'],
     'scripts': ['bin/wordlist'],
     'name': wordlist.__title__
