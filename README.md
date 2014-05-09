@@ -48,7 +48,7 @@ Generate all the possible words with length within a given interval (e.g. from 2
 
 ```python
 import wordlist
-generator = wordlist.Generator([charset])
+generator = wordlist.Generator('charset')
 for each in generator.generate(2, 5):
     print(each)
 ```
@@ -57,7 +57,7 @@ Generate following a given pattern:
 
 ```python
 import wordlist
-generator = wordlist.Generator([charset])
+generator = wordlist.Generator('charset')
 for each in generator.generate_with_pattern('@@q@@er@t@y'):
     print(each)
 ```
