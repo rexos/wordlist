@@ -42,7 +42,7 @@ def parse_charset(charset):
 
 
 def scan_pattern(string):
-    res = OrderedDict(x for x in enumerate(string) if x[1] != '@')
+    res = OrderedDict([(i, x) for i, x in enumerate(string) if x != '@'])
     return res
 
 
@@ -56,4 +56,3 @@ def progress(current, size):
     sys.stdout.write('Progress: %s%s %d%%' %
                      ('='*(val//5), ' '*(20-(val//5)), val))
     sys.stdout.flush()
-
