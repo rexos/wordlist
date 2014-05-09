@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+from __future__ import print_function
 
 import sys
 from argparse import ArgumentParser
@@ -34,18 +35,21 @@ def main():
     if maxlen is None:
         maxlen = len(charset)
 
-    if args['out'] is None:
-        filedesc = sys.stdout
-    else:
-        filedesc = open(args['out'], 'w')
+    try:
+        if args['out'] is None:
+            filedesc = sys.stdout
+        else:
+            filedesc = open(args['out'], 'w')
 
-    wrdlst = wordlist.Generator(charset, filedesc, verbose)
-    # if a pattern is given generate the list based on it
-    if pattern:
-        wrdlst.generate_with_pattern(pattern)
-    # generate normally otherwise
-    else:
-        wrdlst.generate(minlen, maxlen)
+        wrdlst = wordlist.Generator(charset, '\n')
+        # if a pattern is given generate the list based on it
+        if pattern:
+            filedesc.writelines(wrdlst.generate_with_pattern(pattern))
+        # generate normally otherwise
+        else:
+            filedesc.writelines(wrdlst.generate(minlen, maxlen))
+    finally:
+        filedesc.close()
 
 if __name__ == '__main__':
 

@@ -9,14 +9,10 @@
 ############################################
 from __future__ import print_function
 
-import sys
-import os
-
 from itertools import product
 from collections import OrderedDict
 
-from ._util import (str_product,
-                    parse_charset,
+from ._util import (parse_charset,
                     scan_pattern)
 
 
@@ -42,7 +38,8 @@ class Generator(object):
                 # yield the produced word
                 yield ''.join(each)+self.delimiter
 
-    def generate_with_pattern(self, pattern, data=None, composed='', prev=0):
+    def generate_with_pattern(self, pattern=None, data=None, composed='',
+                              prev=0):
         """
         Iterative-Recursive algorithm that creates the list
         based on a given pattern
@@ -64,15 +61,23 @@ class Generator(object):
             if diff:
                 for word in product(self.charset, repeat=diff):
                      # yield the produced word
-                    yield composed + ''.join(word) + self.delimiter
+                    if composed:
+                        yield ''.join(composed) + ''.join(word) + self.delimiter
+                    else:
+                        yield ''.join(word) + self.delimiter
             else:
                  # yield the produced word
-                yield composed + self.delimiter
+                yield ''.join(composed) + self.delimiter
         else:
             # pop a value from the pattern dict concat it to composed
             # concat a new part to the composed string and call this
             # function again with the new composed word
             num, val = data.popitem(last=False)
-            for word in product(self.charset, repeat=num-prev):
-                self.generate_with_pattern(pattern, OrderedDict(data),
-                                           composed + ''.join(word) + val, num+1)
+            for word in product(self.charset, repeat=(num-prev)):
+                nc = ''.join(composed) + ''.join(word) + val
+                gen = self.generate_with_pattern(pattern=pattern,
+                                                 data=OrderedDict(data),
+                                                 composed=nc,
+                                                 prev=num+1)
+                for word in gen:
+                    yield word
