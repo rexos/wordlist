@@ -1,5 +1,9 @@
 Wordlist
 ========
+
+[![Build Status](https://travis-ci.org/dbonadiman/wordlist.svg?branch=master)](https://travis-ci.org/dbonadiman/wordlist)
+
+
 Generates all possible permutations of a given charset.
 
 Developed by [Alex Pellegrini](https://github.com/rexos).
