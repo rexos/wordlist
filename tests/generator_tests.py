@@ -88,4 +88,4 @@ def test_generate_with_pattern_5():
     gen = wordlist.Generator("ab")
     c = gen.generate_with_pattern('')
     with assert_raises(StopIteration):
-        print next(c)
+        next(c)
