@@ -29,7 +29,7 @@ def test_generate_2():
 
 
 def test_generate_3():
-    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"@@\")")
+    print("testing wordlist.Generator(\"ab\").generate(0, 0)")
     gen = wordlist.Generator("ab")
     with assert_raises(ValueError) as e:
         c = gen.generate(0, 0)
@@ -54,7 +54,7 @@ def test_generate_with_pattern():
 
 
 def test_generate_with_pattern_2():
-    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"@@\")")
+    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"@a\")")
     gen = wordlist.Generator("ab")
     c = gen.generate_with_pattern('@a')
     assert_equals(next(c), 'aa')
@@ -64,7 +64,7 @@ def test_generate_with_pattern_2():
 
 
 def test_generate_with_pattern_3():
-    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"@@\")")
+    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"a@\")")
     gen = wordlist.Generator("ab")
     c = gen.generate_with_pattern('a@')
     assert_equals(next(c), 'aa')
@@ -74,7 +74,7 @@ def test_generate_with_pattern_3():
 
 
 def test_generate_with_pattern_4():
-    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"@@\")")
+    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"a@b\")")
     gen = wordlist.Generator("ab")
     c = gen.generate_with_pattern('a@b')
     assert_equals(next(c), 'aab')
@@ -84,7 +84,7 @@ def test_generate_with_pattern_4():
 
 
 def test_generate_with_pattern_5():
-    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"@@\")")
+    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"\")")
     gen = wordlist.Generator("ab")
     c = gen.generate_with_pattern('')
     with assert_raises(StopIteration):
