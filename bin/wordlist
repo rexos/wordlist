@@ -1,0 +1,62 @@
+#! /usr/bin/env python
+from __future__ import print_function
+
+import sys
+from argparse import ArgumentParser
+
+
+def __get_parser():
+    # command line option parsing
+    parser = ArgumentParser()
+    parser.add_argument('charset', help='Charset to use')
+    parser.add_argument('-m', '--min', help='minimum word size', type=int)
+    parser.add_argument('-M', '--max', help='Maximum word size', type=int)
+    parser.add_argument('-o', '--out', help='Saves output to specified file')
+    parser.add_argument('pattern', help='Pattern to follow', nargs='?')
+    parser.add_argument('-v', '--verbose', help='print the progress',
+                        default=False, action="store_true")
+    return parser
+
+
+def main():
+    # command line option parsing
+    parser = __get_parser()
+
+    args = vars(parser.parse_args())
+    charset = args['charset']
+    pattern = args['pattern']
+    minlen = args['min']
+    maxlen = args['max']
+    verbose = args['verbose']
+
+    if minlen is None:
+        minlen = 1
+
+    if maxlen is None:
+        maxlen = len(charset)
+
+    try:
+        if args['out'] is None:
+            filedesc = sys.stdout
+        else:
+            filedesc = open(args['out'], 'w')
+
+        wrdlst = wordlist.Generator(charset, '\n')
+        # if a pattern is given generate the list based on it
+        if pattern:
+            filedesc.writelines(wrdlst.generate_with_pattern(pattern))
+        # generate normally otherwise
+        else:
+            filedesc.writelines(wrdlst.generate(minlen, maxlen))
+    finally:
+        filedesc.close()
+
+if __name__ == '__main__':
+
+    try:
+        import wordlist
+    except:
+        print("ERROR: The wordlist package is not properly installed")
+        sys.exit(1)
+
+    main()
