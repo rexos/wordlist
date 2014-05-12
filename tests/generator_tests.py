@@ -16,6 +16,8 @@ def test_generate():
         next(c)
 
 
+
+
 def test_generate_2():
     print("testing wordlist.Generator(\"ab\").generate(2, 2)")
     gen = wordlist.Generator("ab")
@@ -38,6 +40,19 @@ def test_generate_3():
 
     with assert_raises(ValueError):
         c = gen.generate(0, 0)
+        next(c)
+
+def test_generate_4():
+    print("testing wordlist.Generator(\"ab\").generate(1, 2)")
+    gen = wordlist.Generator("a-b")
+    c = gen.generate(1, 2)
+    assert_equals(next(c), 'a')
+    assert_equals(next(c), 'b')
+    assert_equals(next(c), 'aa')
+    assert_equals(next(c), 'ab')
+    assert_equals(next(c), 'ba')
+    assert_equals(next(c), 'bb')
+    with assert_raises(StopIteration):
         next(c)
 
 
