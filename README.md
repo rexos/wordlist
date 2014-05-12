@@ -3,6 +3,7 @@ Wordlist
 
 [![Build Status](https://travis-ci.org/dbonadiman/wordlist.svg?branch=master)](https://travis-ci.org/dbonadiman/wordlist)
 [![Coverage Status](https://coveralls.io/repos/dbonadiman/wordlist/badge.png?branch=master)](https://coveralls.io/r/dbonadiman/wordlist?branch=master)
+[![Requirements Status](https://requires.io/github/dbonadiman/wordlist/requirements.png?branch=master)](https://requires.io/github/dbonadiman/wordlist/requirements/?branch=master)
 
 
 Generates all possible permutations of a given charset.
