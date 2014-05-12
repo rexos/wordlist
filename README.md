@@ -2,6 +2,7 @@ Wordlist
 ========
 
 [![Build Status](https://travis-ci.org/dbonadiman/wordlist.svg?branch=master)](https://travis-ci.org/dbonadiman/wordlist)
+[![Coverage Status](https://coveralls.io/repos/dbonadiman/wordlist/badge.png?branch=master)](https://coveralls.io/r/dbonadiman/wordlist?branch=master)
 
 
 Generates all possible permutations of a given charset.
@@ -14,7 +15,7 @@ Code and performance optimisation by [Daniele Bonadiman](https://github.com/dbon
 
 ```
 $ pip install git+https://github.com/rexos/wordlist.git
-``` 
+```
 
 ## Usage:
 
@@ -37,9 +38,9 @@ Generate following a given pattern:
 Save a list to file:
 
     $ wordlist [charset] -o list.txt
-    
+
 or:
-    
+
     $ wordlist [charset] > list.txt
 
 ### Python
