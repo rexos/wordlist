@@ -11,5 +11,5 @@ install:
   - "pip install -r requirements.txt"
 # command to run tests, e.g. python setup.py test
 script:
-  - nosetests
+  - nosetests --with-coverage
   - coveralls
