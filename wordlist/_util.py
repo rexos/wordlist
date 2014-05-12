@@ -1,5 +1,3 @@
-import sys
-from itertools import product
 from collections import OrderedDict
 
 
@@ -12,15 +10,6 @@ def char_range(x, y):
 
     for z in range(ord(x), ord(y) + 1):
         yield(chr(z))
-
-
-def str_product(charset, repeat, default=''):
-    """
-    A generator returning all the possible permutation of characters
-    from a charset as string (the string ends with a newline)
-    """
-    for each in product(charset, repeat=repeat):
-        yield ''.join(each)+default
 
 
 def parse_charset(charset):
@@ -44,15 +33,3 @@ def parse_charset(charset):
 def scan_pattern(string):
     res = OrderedDict([(i, x) for i, x in enumerate(string) if x != '@'])
     return res
-
-
-def progress(current, size):
-    """
-    Prints out a progress bar reporting the work done
-    so far.
-    """
-    val = int((current * 100) / float(size))
-    sys.stdout.write('\r')
-    sys.stdout.write('Progress: %s%s %d%%' %
-                     ('='*(val//5), ' '*(20-(val//5)), val))
-    sys.stdout.flush()
