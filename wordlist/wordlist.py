@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 ############################################
 #                                          #
 # Wordlist generator, creates dictionaries #
@@ -7,6 +7,30 @@
 # dbonadiman.                              #
 #                                          #
 ############################################
+"""Wordlist
+
+Generates all possible permutations of a given charset.
+
+Usage:
+>>>import wordlist
+>>>generator = wordlist.Generator('ab')
+>>>for each in generator.generate(1, 2):
+...    print(each)
+a
+b
+aa
+ab
+ba
+bb
+
+>>>import wordlist
+>>>generator = wordlist.Generator('ab')
+>>>for each in generator.generate_with_pattern('@a'):
+...    print(each)
+aa
+ba
+"""
+
 from __future__ import print_function
 
 from itertools import product
