@@ -78,10 +78,10 @@ class Generator(object):
                 # function again with the new composed word
                 num, val = data.popitem(last=False)
                 for word in product(self.charset, repeat=(num-prev)):
-                    nc = ''.join(composed) + ''.join(word) + val
+                    tmp_composed = ''.join(composed) + ''.join(word) + val
                     gen = self.generate_with_pattern(pattern=pattern,
                                                      data=OrderedDict(data),
-                                                     composed=nc,
+                                                     composed=tmp_composed,
                                                      prev=num+1)
                     for word in gen:
                         yield word

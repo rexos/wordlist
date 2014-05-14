@@ -1,15 +1,15 @@
 from collections import OrderedDict
 
 
-def char_range(x, y):
+def char_range(starting_char, ending_char):
     """
     Create a range generator for chars
     """
-    assert isinstance(x, str), 'char_range: Wrong argument/s type'
-    assert isinstance(y, str), 'char_range: Wrong argument/s type'
+    assert isinstance(starting_char, str), 'char_range: Wrong argument/s type'
+    assert isinstance(ending_char, str), 'char_range: Wrong argument/s type'
 
-    for z in range(ord(x), ord(y) + 1):
-        yield(chr(z))
+    for char in range(ord(starting_char), ord(ending_char) + 1):
+        yield chr(char)
 
 
 def parse_charset(charset):
@@ -18,14 +18,14 @@ def parse_charset(charset):
     creates the charset
     """
     import re
-    regex = '(\w-\w)'
+    regex = r'(\w-\w)'
     pat = re.compile(regex)
     found = pat.findall(charset)
     result = ''
     if found:
-        for el in found:
-            for x in char_range(el[0], el[-1]):
-                result += x
+        for element in found:
+            for char in char_range(element[0], element[-1]):
+                result += char
         return result
     return charset
 
