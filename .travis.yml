@@ -12,6 +12,5 @@ install:
 # command to run tests, e.g. python setup.py test
 script:
   - nosetests --with-coverage --cover-package=wordlist
-  - pylint
 after_success:
   - coveralls
