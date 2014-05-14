@@ -1,3 +1,9 @@
+""".util
+is a private module containing utility
+used for the actual implementation of
+the wordlist generator
+"""
+
 from collections import OrderedDict
 
 
@@ -31,5 +37,9 @@ def parse_charset(charset):
 
 
 def scan_pattern(string):
+    """
+    Scans the pattern in the form @@@a@@ returning an OrderedDict
+    containing the position of the fixed characters.
+    """
     res = OrderedDict([(i, x) for i, x in enumerate(string) if x != '@'])
     return res
