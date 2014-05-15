@@ -2,10 +2,13 @@ Wordlist
 ========
 
 Continuous integration status:
+
 [![Build Status](https://travis-ci.org/dbonadiman/wordlist.svg?branch=master)](https://travis-ci.org/dbonadiman/wordlist)
 [![Coverage Status](https://coveralls.io/repos/dbonadiman/wordlist/badge.png?branch=master)](https://coveralls.io/r/dbonadiman/wordlist?branch=master)
 [![Requirements Status](https://requires.io/github/dbonadiman/wordlist/requirements.png?branch=master)](https://requires.io/github/dbonadiman/wordlist/requirements/?branch=master)
+
 Pypi status:
+
 [![PyPi version](https://pypip.in/v/wordlist/badge.png)](https://crate.io/packages/wordlist/)
 [![PyPi downloads](https://pypip.in/d/wordlist/badge.png)](https://crate.io/packages/wordlist/)
 
