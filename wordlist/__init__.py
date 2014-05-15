@@ -23,7 +23,6 @@ aa
 ba
 """
 __title__ = "wordlist"
-__version__ = '1.0'
-
+__version__ = '1.0.1'
 
 from .wordlist import Generator

@@ -7,12 +7,9 @@ import wordlist
 
 install_requires = []
 
-with open('README.md') as file:
-    long_description = file.read()
 
 config = {
     'description': 'Wordlist generator, creates dictionaries of words',
-    'long_description': long_description,
     'author': 'Rexos',
     'url': 'https://github.com/rexos/wordlist',
     'download_url': 'https://github.com/rexos/wordlist/tarball/1.0',
