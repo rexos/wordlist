@@ -1,6 +1,14 @@
 Wordlist
 ========
 
+
+Generates all possible permutations of a given charset.
+
+Developed by [Alex Pellegrini](https://github.com/rexos).
+
+Code and performance optimisation by [Daniele Bonadiman](https://github.com/dbonadiman).
+
+
 Continuous integration status:
 
 [![Build Status](https://travis-ci.org/dbonadiman/wordlist.svg?branch=master)](https://travis-ci.org/dbonadiman/wordlist)
@@ -12,12 +20,6 @@ Pypi status:
 [![PyPi version](https://pypip.in/v/wordlist/badge.png)](https://crate.io/packages/wordlist/)
 [![PyPi downloads](https://pypip.in/d/wordlist/badge.png)](https://crate.io/packages/wordlist/)
 
-
-Generates all possible permutations of a given charset.
-
-Developed by [Alex Pellegrini](https://github.com/rexos).
-
-Code and performance optimisation by [Daniele Bonadiman](https://github.com/dbonadiman).
 
 ## Installing:
 
