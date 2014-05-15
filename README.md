@@ -15,7 +15,7 @@ Code and performance optimisation by [Daniele Bonadiman](https://github.com/dbon
 ## Installing:
 
 ```
-$ pip install git+https://github.com/rexos/wordlist.git
+$ pip install wordlist
 ```
 
 ## Usage:
