@@ -22,7 +22,8 @@ bb
 aa
 ba
 """
+from .wordlist import Generator
+
 __title__ = "wordlist"
 __version__ = '1.0.1'
-
-from .wordlist import Generator
+__all__ = ["Generator"]
