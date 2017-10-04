@@ -43,7 +43,7 @@ Generate all the possible words with length within a given interval (e.g. from 2
 
 Generate following a given pattern:
 
-    $ wordlist [charset] @@q@@er@t@y
+    $ wordlist [charset] {}{}q{}{}er{}t@y
 
 Save a list to file:
 
@@ -69,7 +69,7 @@ Generate following a given pattern:
 ```python
 import wordlist
 generator = wordlist.Generator('charset')
-for each in generator.generate_with_pattern('@@q@@er@t@y'):
+for each in generator.generate_with_pattern('{}{}q{}{}er{}t{}y'):
     print(each)
 ```
 
@@ -86,10 +86,12 @@ There are to ways to pass the charset to the script:
 #### Pattern
 The pattern should be like:
 
-`@@q@@er@t@y`
+`{}{}q{}{}er{}t{}y`
 
-The script will replace every `@` symbol with every letter in the charset so as to get every possible
+The script will replace every `{}` symbol with every letter in the charset so as to get every possible
 permutation. Every other symbol will be a fixed character present in every string. In this example, every generated string will contain a `q` at the 3rd position an `e` at the 6th and so on.
+
+If you need to scape the curly brackets in the pattern just use `{{}}`
 
 ## Contributing
 

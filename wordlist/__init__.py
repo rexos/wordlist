@@ -25,5 +25,5 @@ ba
 from .wordlist import Generator
 
 __title__ = "wordlist"
-__version__ = '1.0.1'
+__version__ = '1.0.3'
 __all__ = ["Generator"]
