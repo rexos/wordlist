@@ -17,8 +17,8 @@ Continuous integration status:
 
 Pypi status:
 
-[![PyPi version](https://pypip.in/v/wordlist/badge.png)](https://crate.io/packages/wordlist/)
-[![PyPi downloads](https://pypip.in/d/wordlist/badge.png)](https://crate.io/packages/wordlist/)
+[![PyPi version](https://img.shields.io/pypi/v/wordlist.svg)](https://crate.io/packages/wordlist/)
+[![PyPi downloads](https://img.shields.io/pypi/dm/wordlist.svg)](https://crate.io/packages/wordlist/)
 
 
 ## Installing:
