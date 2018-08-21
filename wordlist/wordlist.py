@@ -15,10 +15,9 @@ Generates all possible permutations of a given charset.
 from __future__ import print_function
 
 from itertools import product
-from collections import OrderedDict
 
 from ._util import (parse_charset,
-                    scan_pattern)
+                    get_pattern_length)
 
 
 class Generator(object):
@@ -44,49 +43,17 @@ class Generator(object):
                 # yield the produced word
                 yield ''.join(each)+self.delimiter
 
-    def generate_with_pattern(self, pattern=None, data=None, composed='',
-                              prev=0):
+    def generate_with_pattern(self, pattern=None):
         """
-        Iterative-Recursive algorithm that creates the list
+        Algorithm that creates the list
         based on a given pattern
-        Each recursive call will concatenate a piece of string
-        to the composed parameter
-        data contains the dict created by scanning the pattern
-        composed contains the current composed word (works recursively)
-        prev is the index of the previous data object used.
+        The pattern must be like string format patter:
+        e.g: a{}b will match an 'a' follow by any character follow by a 'b'
+
+        To scape the curly brackets just use {{}}
         """
-        if pattern:
-            if not prev:
-                # the first call should scan the pattern first
-                data = scan_pattern(pattern)
 
-            if not data:
-                # if the known values in the pattern have been completely
-                # used concat the last part, if any, and print it out
-                diff = len(pattern)-prev
-                if diff and composed:
-                    for word in product(self.charset, repeat=diff):
-                         # yield the produced word
-                        c_word = ''.join(composed) + ''.join(word)
-                        yield c_word + self.delimiter
-
-                elif diff:
-                    for word in product(self.charset, repeat=diff):
-                         # yield the produced word
-                        yield ''.join(word) + self.delimiter
-                else:
-                     # yield the produced word
-                    yield ''.join(composed) + self.delimiter
-            else:
-                # pop a value from the pattern dict concat it to composed
-                # concat a new part to the composed string and call this
-                # function again with the new composed word
-                num, val = data.popitem(last=False)
-                for word in product(self.charset, repeat=(num-prev)):
-                    tmp_composed = ''.join(composed) + ''.join(word) + val
-                    gen = self.generate_with_pattern(pattern=pattern,
-                                                     data=OrderedDict(data),
-                                                     composed=tmp_composed,
-                                                     prev=num+1)
-                    for word in gen:
-                        yield word
+        curlen = get_pattern_length(pattern)
+        str_generator = product(self.charset, repeat=curlen)
+        for each in str_generator:
+            yield pattern.format(*each)+self.delimiter
