@@ -16,8 +16,7 @@ from __future__ import print_function
 
 from itertools import product
 
-from ._util import (parse_charset,
-                    get_pattern_length)
+import wordlist._util as utils
 
 
 class Generator(object):
@@ -25,7 +24,7 @@ class Generator(object):
     Wordlist class is the wordlist itself, will do the job
     """
     def __init__(self, charset, delimiter=''):
-        self.charset = parse_charset(charset)
+        self.charset = utils.parse_charset(charset)
         self.delimiter = delimiter
 
     def generate(self, minlen, maxlen):
@@ -48,12 +47,13 @@ class Generator(object):
         Algorithm that creates the list
         based on a given pattern
         The pattern must be like string format patter:
-        e.g: a{}b will match an 'a' follow by any character follow by a 'b'
-
-        To scape the curly brackets just use {{}}
+        e.g: a@b will match an 'a' follow by any character follow by a 'b'
         """
 
-        curlen = get_pattern_length(pattern)
-        str_generator = product(self.charset, repeat=curlen)
-        for each in str_generator:
-            yield pattern.format(*each)+self.delimiter
+        curlen = utils.get_pattern_length(pattern)
+        if curlen > 0:
+            str_generator = product(self.charset, repeat=curlen)
+            pattern = pattern + self.delimiter
+            fstring = utils.pattern_to_fstring(pattern)
+            for each in str_generator:
+                yield fstring.format(*each)

@@ -40,4 +40,11 @@ def get_pattern_length(string):
     """
     Determines the number of characters to be filled in the pattern
     """
-    return string.replace("{{}}", "").count("{}")
+    return string.count("@")
+
+
+def pattern_to_fstring(string):
+    """
+    Determines the number of characters to be filled in the pattern
+    """
+    return string.replace("@", "{}")

@@ -52,4 +52,5 @@ coverage.xml
 docs/_build/
 
 .idea/
+.pytest_cache/
 

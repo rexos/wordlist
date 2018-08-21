@@ -16,8 +16,6 @@ def test_generate():
         next(c)
 
 
-
-
 def test_generate_2():
     print("testing wordlist.Generator(\"ab\").generate(2, 2)")
     gen = wordlist.Generator("ab")
@@ -57,9 +55,9 @@ def test_generate_4():
 
 
 def test_generate_with_pattern():
-    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"{}{}\")")
+    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"@@\")")
     gen = wordlist.Generator("ab")
-    c = gen.generate_with_pattern('{}{}')
+    c = gen.generate_with_pattern('@@')
     assert_equals(next(c), 'aa')
     assert_equals(next(c), 'ab')
     assert_equals(next(c), 'ba')
@@ -69,9 +67,9 @@ def test_generate_with_pattern():
 
 
 def test_generate_with_pattern_2():
-    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"{}a\")")
+    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"@a\")")
     gen = wordlist.Generator("ab")
-    c = gen.generate_with_pattern('{}a')
+    c = gen.generate_with_pattern('@a')
     assert_equals(next(c), 'aa')
     assert_equals(next(c), 'ba')
     with assert_raises(StopIteration):
@@ -79,9 +77,9 @@ def test_generate_with_pattern_2():
 
 
 def test_generate_with_pattern_3():
-    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"a{}\")")
+    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"a@\")")
     gen = wordlist.Generator("ab")
-    c = gen.generate_with_pattern('a{}')
+    c = gen.generate_with_pattern('a@')
     assert_equals(next(c), 'aa')
     assert_equals(next(c), 'ab')
     with assert_raises(StopIteration):
@@ -89,9 +87,9 @@ def test_generate_with_pattern_3():
 
 
 def test_generate_with_pattern_4():
-    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"a{}b\")")
+    print("testing wordlist.Generator(\"ab\").generate_with_pattern(\"a@b\")")
     gen = wordlist.Generator("ab")
-    c = gen.generate_with_pattern('a{}b')
+    c = gen.generate_with_pattern('a@b')
     assert_equals(next(c), 'aab')
     assert_equals(next(c), 'abb')
     with assert_raises(StopIteration):
